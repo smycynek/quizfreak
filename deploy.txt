@@ -1,0 +1,4 @@
+heroku create
+git push heroku master
+git remote remove heroku
+heroku ps:scale web=1

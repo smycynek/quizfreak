@@ -1,0 +1,10 @@
+django==2.2.8
+gunicorn
+django-heroku
+requests
+djangorestframework
+django-cors-headers
+python-dotenv==0.14.0
+django-extensions
+django_postgres_extensions
+six
