@@ -1,6 +1,7 @@
 """
 Quiz views
 """
+import datetime
 from rest_framework.response import Response
 from rest_framework import status, mixins
 from rest_framework.viewsets import GenericViewSet
@@ -46,3 +47,16 @@ class ResultsView(mixins.CreateModelMixin,
     """
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
+
+class QuizLockView(GenericViewSet):
+    """
+    Lock a quiz to make it read-only
+    """
+    def create(self, request, *args, **kwargs):
+        """
+        Set lock
+        """
+        quiz = Quiz.objects.all().get(id=kwargs['id'])
+        quiz.locked = datetime.datetime.now()
+        quiz.save()
+        return Response(status=status.HTTP_200_OK)

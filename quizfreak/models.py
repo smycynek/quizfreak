@@ -19,7 +19,7 @@ class Result(models.Model):
         null=False, on_delete=models.deletion.CASCADE)
 
     def __str__(self):
-        return f"{self.name=}, {self.description=}, {self.id=}"
+        return f"{self.name}, {self.description}, {self.id}"
 
 class Question(models.Model):
     """
@@ -34,7 +34,7 @@ class Question(models.Model):
         null=False, on_delete=models.deletion.CASCADE)
 
     def __str__(self):
-        return f"{self.text=}, {self.choices=}, {self.id=}"
+        return f"{self.text}, {self.choices}, {self.id}"
 
 class Quiz(models.Model):
     """
@@ -43,6 +43,7 @@ class Quiz(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     name = models.CharField('name', max_length=200, null=False, blank=False)
+    locked = models.DateTimeField('locked', null=True)
 
     def __str__(self):
-        return f"{self.name=}, {self.id=}"
+        return f"{self.name}, {self.locked}, {self.id}"
