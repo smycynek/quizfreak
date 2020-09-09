@@ -41,14 +41,19 @@ class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
 
-        fields = ('id', 'name', 'description', 'quiz_id')
+        fields = ('id', 'name', 'description', 'index', 'quiz_id')
 
 class QuizSerializer(serializers.ModelSerializer):
     """
     Quiz serializer
     """
+    def get_results(self, instance):
+        """ Serialize results by index order """
+        results = instance.results.all().order_by('index')
+        return ResultSerializer(results, many=True).data
+
     questions = QuestionSerializer(read_only=True, many=True)
-    results = ResultSerializer(many=True, read_only=True)
+    results = serializers.SerializerMethodField()
     locked = serializers.DateTimeField(read_only=True)
     class Meta:
         model = Quiz

@@ -15,6 +15,7 @@ class Result(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     name = models.CharField('name', max_length=200, null=False, blank=False)
     description  = models.CharField('description', max_length=200, null=False, blank=False)
+    index = models.PositiveIntegerField('index', db_index=True, default=0, null=False)
     quiz = models.ForeignKey("quizfreak.Quiz", related_name='results',
         null=False, on_delete=models.deletion.CASCADE)
 
