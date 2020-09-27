@@ -1,6 +1,9 @@
 # quizfreak
 
-A back-end for quiz creation and sharing
+A back-end for personality quiz creation and sharing
+
+Version 0.1.0 
+Copyright 2020 Steven Mycynek
 
 Uses Django Rest Framework and Postgres
 
