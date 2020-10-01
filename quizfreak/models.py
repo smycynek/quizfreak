@@ -45,6 +45,7 @@ class Quiz(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     name = models.CharField('name', max_length=200, null=False, blank=False)
     locked = models.DateTimeField('locked', null=True)
+    public = models.BooleanField('public', null=False, default=True)
 
     def __str__(self):
         return f"{self.name}, {self.locked}, {self.id}"

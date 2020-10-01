@@ -55,6 +55,7 @@ class QuizSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(read_only=True, many=True)
     results = serializers.SerializerMethodField()
     locked = serializers.DateTimeField(read_only=True)
+    public = serializers.BooleanField(required=False)
     class Meta:
         model = Quiz
-        fields = ('id', 'name', 'questions', 'results', 'locked')
+        fields = ('id', 'name', 'questions', 'results', 'locked', 'public')
