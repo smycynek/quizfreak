@@ -5,8 +5,9 @@ import datetime
 from rest_framework.response import Response
 from rest_framework import status, mixins
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from .serializers import QuizSerializer, QuestionSerializer, ResultSerializer
+from .serializers import QuizSerializer, QuestionSerializer, ResultSerializer, SkinnyQuizSerializer
 from .models import Quiz, Question, Result
 
 class QuizzesView(mixins.CreateModelMixin,
@@ -19,11 +20,22 @@ class QuizzesView(mixins.CreateModelMixin,
     queryset = Quiz.objects.filter(locked__isnull=False, public=True)
     serializer_class = QuizSerializer
 
+    @action(methods=['get'], detail=False)
+    def random(self, request):
+        """ Random quiz """
+        instance = self.queryset.order_by("?").first()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
     def retrieve(self, request, *args, **kwargs):
         instance = get_object_or_404(Quiz, pk=kwargs['pk'])
         if instance.locked is None:
             return Response("Quiz not yet locked", status.HTTP_403_FORBIDDEN)
         serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        serializer = SkinnyQuizSerializer(self.queryset.all(), many=True)
         return Response(serializer.data)
 
 class QuestionsView(mixins.CreateModelMixin,

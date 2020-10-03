@@ -59,3 +59,16 @@ class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = ('id', 'name', 'questions', 'results', 'locked', 'public')
+
+class SkinnyQuizSerializer(serializers.ModelSerializer):
+    """
+    Quiz serializer
+    """
+    def get_results(self, instance):
+        """ Serialize results by index order """
+        results = instance.results.all().order_by('index')
+        return ResultSerializer(results, many=True).data
+
+    class Meta:
+        model = Quiz
+        fields = ('id', 'name')
