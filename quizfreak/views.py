@@ -64,6 +64,13 @@ class ResultsView(mixins.CreateModelMixin,
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
 
+    @action(methods=['post'], detail=False)
+    def bulk(self, request):
+        new_results = ResultSerializer(data=request.data, many=True)
+        new_results.is_valid(raise_exception=True)
+        new_results.save()
+        return Response(status=status.HTTP_201_CREATED)
+
 class QuizLockView(GenericViewSet):
     """
     Lock a quiz to make it read-only
