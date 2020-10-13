@@ -14,3 +14,7 @@ From a Python 3.8 virtual environment:
 pip install -r requirements.txt
 python manage.py runserver
 ```
+
+Live demo at:
+https://stevenvictor.net/quizwiz
+
