@@ -7,4 +7,4 @@ django-cors-headers
 python-dotenv==0.14.0
 django-extensions
 django_postgres_extensions
-
+psycopg2>=2.8,<2.9
