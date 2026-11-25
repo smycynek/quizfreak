@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 
-
-import collections
-import collections.abc
-
-# Add these lines before any Django imports
-collections.MutableSet = collections.abc.MutableSet
-collections.MutableMapping = collections.abc.MutableMapping
-
 import os
 import sys
 

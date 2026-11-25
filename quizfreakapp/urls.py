@@ -1,11 +1,8 @@
 """
 Quiz urls
 """
-from django.urls import include
-from django.conf.urls import url
-# from . import admin
+from django.urls import include, path
 
 urlpatterns = [
-    url(r'^', include('quizfreak.urls')),
-
+    path('', include('quizfreak.urls')),
 ]
